@@ -2,7 +2,7 @@ base:
   project: wine-quality-prediction
   random_state: 42
   target_col: quality
-  test_size: 0.2
+  
 
 data_source:
   remote_source: data/winequality.csv
@@ -13,6 +13,7 @@ split_data:
   processed_data_dir: data/processed_data
   train_path: data/processed/train.csv
   test_path: data/processed/test.csv
+  test_size: 0.2
 
 reports:
   reports_dir: data/report
