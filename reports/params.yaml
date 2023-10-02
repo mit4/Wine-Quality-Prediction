@@ -1,0 +1,32 @@
+base:
+  project: wine-quality-prediction
+  random_state: 42
+  target_col: quality
+  test_size: 0.2
+
+data_source:
+  remote_source: data/winequality.csv
+  raw_local_data_dir: data/raw
+  raw_local_data: data/raw/data.csv
+
+split_data:
+  processed_data_dir: data/processed_data
+  train_path: data/processed/train.csv
+  test_path: data/processed/test.csv
+
+reports:
+  reports_dir: data/report
+  params: data/report/params.json
+  scores: data/report/scores.json
+
+models:
+  model_dir: data/models
+  model_path: data/models/model.joblib
+
+
+estimators:
+  ElasticNet:
+    params:
+      alpha: 0.7
+      l1_ratio: 0.4
+
