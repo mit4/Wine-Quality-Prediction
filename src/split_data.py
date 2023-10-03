@@ -13,11 +13,11 @@ def split_save_data(config_path):
     test_size = config["split_data"]["test_size"]
     random_state = config["base"]["random_state"]
 
-    df = pd.read_csv(raw_data, sep=" ")
+    df = pd.read_csv(raw_data)
 
     X, Y = train_test_split(df, test_size=test_size, random_state=random_state)
     X.to_csv(train_data_path, index=False)
-    X.to_csv(test_data_path, index=False)
+    Y.to_csv(test_data_path, index=False)
 
 
 if __name__ == "__main__":

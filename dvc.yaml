@@ -1,42 +1,34 @@
 stages:
   load_data:
-    cmd: python src/get_data.py --config=params.yaml
-
-    deps: 
-      - src/get_data.py
-      - data/winequality.csv
-     
+    cmd:  python src/get_data.py --config=reports/params.yaml
+    deps:
+    - src/get_data.py
+    - data/winequality.csv
     outs:
-      - data/raw/data.csv
+    - data/raw/data.csv
 
   split_data:
-    cmd: python src/split_data.py --config=params.yaml
+    cmd: python src/split_data.py --config=reports/params.yaml
     deps:
-      - src/split_data.py
-      - data/rawr/data.csv
-      - src/get_data.py
+    - src/split_data.py
+    - data/raw/data.csv
+    - src/get_data.py
 
     outs:
-      - data/processed_data/train.csv
-      - data/processed_data/test.csv
+    - data/processed/train.csv
+    - data/processed/test.csv
 
-  # train:
-  #   cmd: python src/stage_03_train.py --config=params.yaml
-  #   deps:
-  #     - src/stage_03_train.py
-  #     - artifacts/processed_data/train.csv
-  #     - src/utils/common_utils.py
-  #   params:
-  #     - base.random_state
-  #     - base.target_col
-  #     - artifacts.split_data.train_path
-  #     - estimators.ElasticNet.params.alpha
-  #     - estimators.ElasticNet.params.l1_ratio
-  #   metrics: 
-  #     - artifacts/report/params.json:
-  #         cache: false
-  #   outs:
-  #     - artifacts/saved_models/model.joblib
+  train:
+    cmd: python src/train.py --config=reports/params.yaml
+    deps:
+      - src/train.py
+      - data/processed/train.csv
+      - src/get_data.py
+    metrics: 
+      - reports/params.json:
+          cache: false
+    outs:
+      - models/model.joblib
 
   # evaluate:
   #   cmd: python src/stage_04_evaluate.py --config=params.yaml

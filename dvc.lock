@@ -1,0 +1,66 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python src/get_data.py --config=reports/params.yaml
+    deps:
+    - path: data/winequality.csv
+      hash: md5
+      md5: 039e0c0ae6c521a38be02fad158bed3f
+      size: 428407
+    - path: src/get_data.py
+      hash: md5
+      md5: 97b154a038131f30176606c37a96cc9b
+      size: 795
+    outs:
+    - path: data/raw/data.csv
+      hash: md5
+      md5: 3d6302d2d429469632dab76de0db3885
+      size: 393442
+  split_data:
+    cmd: python src/split_data.py --config=reports/params.yaml
+    deps:
+    - path: data/raw/data.csv
+      hash: md5
+      md5: 3d6302d2d429469632dab76de0db3885
+      size: 393442
+    - path: src/get_data.py
+      hash: md5
+      md5: 97b154a038131f30176606c37a96cc9b
+      size: 795
+    - path: src/split_data.py
+      hash: md5
+      md5: d662120a53bd9fe2e6d8ea0198bb7548
+      size: 963
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 596b91a822762853ef50e93942fbf1f9
+      size: 78754
+    - path: data/processed/train.csv
+      hash: md5
+      md5: a08a6d72b2898065be3dc926c406d611
+      size: 314835
+  train:
+    cmd: python src/train.py --config=reports/params.yaml
+    deps:
+    - path: data/processed/train.csv
+      hash: md5
+      md5: a08a6d72b2898065be3dc926c406d611
+      size: 314835
+    - path: src/get_data.py
+      hash: md5
+      md5: 97b154a038131f30176606c37a96cc9b
+      size: 795
+    - path: src/train.py
+      hash: md5
+      md5: fd34c3bdb9bdbd05d2f3b30e6be1a4a3
+      size: 2147
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: aef88189b190bbbc4febc7502d4331b6
+      size: 693
+    - path: reports/params.json
+      hash: md5
+      md5: 326e2e1575c8821920f61b05a3ec5f3e
+      size: 44

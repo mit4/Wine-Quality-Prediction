@@ -1,7 +1,7 @@
 base:
   project: wine-quality-prediction
   random_state: 42
-  target_col: quality
+  target_col: "quality"
   
 
 data_source:
@@ -16,13 +16,13 @@ split_data:
   test_size: 0.2
 
 reports:
-  reports_dir: data/report
-  params: data/report/params.json
-  scores: data/report/scores.json
+  reports_dir: reports
+  params: reports/params.json
+  scores: reports/scores.json
 
 models:
-  model_dir: data/models
-  model_path: data/models/model.joblib
+  model_dir: models
+  model_path: models/model.joblib
 
 
 estimators:
