@@ -15,11 +15,6 @@ split_data:
   test_path: data/processed/test.csv
   test_size: 0.2
 
-reports:
-  reports_dir: reports
-  params: reports/params.json
-  scores: reports/scores.json
-
 models:
   model_dir: models
   model_path: models/model.joblib

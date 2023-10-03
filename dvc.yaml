@@ -1,6 +1,6 @@
 stages:
   load_data:
-    cmd:  python src/get_data.py --config=reports/params.yaml
+    cmd:  python src/get_data.py --config=params.yaml
     deps:
     - src/get_data.py
     - data/winequality.csv
@@ -8,7 +8,7 @@ stages:
     - data/raw/data.csv
 
   split_data:
-    cmd: python src/split_data.py --config=reports/params.yaml
+    cmd: python src/split_data.py --config=params.yaml
     deps:
     - src/split_data.py
     - data/raw/data.csv
@@ -19,27 +19,8 @@ stages:
     - data/processed/test.csv
 
   train:
-    cmd: python src/train.py --config=reports/params.yaml
+    cmd: python src/train.py --config=params.yaml
     deps:
       - src/train.py
       - data/processed/train.csv
       - src/get_data.py
-    metrics: 
-      - reports/params.json:
-          cache: false
-    outs:
-      - models/model.joblib
-
-  # evaluate:
-  #   cmd: python src/stage_04_evaluate.py --config=params.yaml
-  #   deps:
-  #     - src/stage_04_evaluate.py
-  #     - artifacts/processed_data/test.csv
-  #     - artifacts/saved_models/model.joblib
-  #     - src/utils/common_utils.py
-  #   params:
-  #     - base.target_col
-  #     - artifacts.split_data.test_path
-  #   metrics: 
-  #     - artifacts/report/scores.json:
-  #         cache: false

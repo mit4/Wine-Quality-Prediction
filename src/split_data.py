@@ -22,7 +22,6 @@ def split_save_data(config_path):
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
-    param_path = os.path.join("reports", "params.yaml")
-    args.add_argument("--config", default=param_path)
+    args.add_argument("--config", default="params.yaml")
     parsed_args = args.parse_args()
     split_save_data(config_path=parsed_args.config)
